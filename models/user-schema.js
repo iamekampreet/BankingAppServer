@@ -49,6 +49,8 @@ const UserSchema = new mongoose.Schema({
             accountBalance: {
                 type: SchemaTypes.Decimal128, required: true
             },
+            // active, inactive, blocked
+            status: { type: String, required: true }
             //can add sub types of credit cards like student card, personal, business
         }
     ]

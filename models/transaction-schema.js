@@ -2,8 +2,6 @@ import mongoose, { SchemaTypes } from "mongoose";
 
 /*
     My Assumptions;
-    - I am assuming checking account and debit card are same.
-    - So, a debit card number will be same as checking account number
     - Any transaction performed using debit card will be an checking account transaction
     - Money must be moved from saving to checking before 
         it can go to other user's account
@@ -22,6 +20,7 @@ import mongoose, { SchemaTypes } from "mongoose";
 const TransactionSchema = new mongoose.Schema({
     // origin from user can be checking, saving/debit, credit
     accountNumber: { type: BigInt, required: true },
+    cardNUmber:  {type: BigInt, required: false },
 
     // debit(incoming) or credit(outgoing) (so, no need for different incoming and outgoing transactin types)
     transactionType: { type: String, required: true },
