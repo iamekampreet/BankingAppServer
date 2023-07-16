@@ -28,8 +28,12 @@ const TransactionSchema = new mongoose.Schema({
     // if credit(outgoing) will represent to which account
     // *the name can be improved
     transactionToFrom: { type: BigInt, required: true},
-    // i don't think rounding money is good idea :)
-    amount: { type: SchemaTypes.Decimal128, required: true },
+    amount: { 
+        type: SchemaTypes.Decimal128,
+        get: bal => (bal/100).toFixed(2),
+        set: bal => Math.round(bal * 100),
+        required: true
+    },
     currency: { type: String, required: true },
     transactionTime: { type: Date, required: true },
     // pending/complete: will be used in split bill and request payment features
