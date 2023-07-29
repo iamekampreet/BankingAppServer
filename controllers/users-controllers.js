@@ -2,7 +2,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const HttpError = require("../models/http-error");
-const User = require("../models/user-schema");
+const User = require("../schema/user-schema");
 
 const signup = async (req, res, next) => {
   const { debitCard, lastName, email, password } = req.body;

@@ -20,7 +20,7 @@ import mongoose, { SchemaTypes } from "mongoose";
 const TransactionSchema = new mongoose.Schema({
     // origin from user can be checking, saving/debit, credit
     accountNumber: { type: BigInt, required: true },
-    cardNUmber:  {type: BigInt, required: false },
+    cardNumber:  {type: BigInt, required: false },
 
     // debit(incoming) or credit(outgoing) (so, no need for different incoming and outgoing transactin types)
     transactionType: { type: String, required: true },
@@ -34,7 +34,6 @@ const TransactionSchema = new mongoose.Schema({
         set: bal => Math.round(bal * 100),
         required: true
     },
-    currency: { type: String, required: true },
     transactionTime: { type: Date, required: true },
     // pending/complete: will be used in split bill and request payment features
     status: { type: String, required: true}
