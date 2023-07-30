@@ -30,6 +30,9 @@ app.use("/api/users", usersRoutes);
 app.use("/api/splitBill", splitBillRoutes)
 
 app.get('/init', initController.init)
+app.get('/test', (req, res) => {
+  res.send("All good!")
+})
 
 // When a route wasn't found for the path requested
 app.use((req, res, next) => {

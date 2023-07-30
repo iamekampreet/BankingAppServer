@@ -34,13 +34,15 @@ exports.splitBill = async (req, res) => {
 
       try {
         const savedTransaction = await transaction.save()
+        transactions.push(savedTransaction._id)
       } catch(ex) {
         res.status(500).send(ex.message)
+        return
       }
       
-      transactions.push(savedTransaction._id)
     } else {
       res.status(400).send(JSON.stringify({ message: `User with phone ${phoneNumber} is not a registered user.`}))
+      return
     }
   }
 
@@ -52,10 +54,9 @@ exports.splitBill = async (req, res) => {
 
   try {
     await requestPayment.save()
+    res.json({ message: "Split request successfully sent!"})
   } catch (ex) {
     res.status(500).send(ex.message)
   }
-
-  res.json({ message: "Split request successfully sent!"})
 }
 
