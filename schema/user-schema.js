@@ -9,12 +9,12 @@ const mongoose = require("mongoose");
 
 const UserSchema = new mongoose.Schema({
   firstName: { type: String, required: true },
-  lastName: { type: String, required: true },
+  lastName: { type: String, required: false },
   // unique is used to make index for faster querying, not validation
   email: { type: String, required: true, unique: true, match: /.+\@.+\..+/ },
   password: { type: String },
   address: { type: String, required: true },
-  phone: { type: String, required: true },
+  phone: { type: String, required: true, unique: true },
   sinNumber: { type: String, required: true },
   //can be individual, student, business, joint, organization(University, college)
   accountType: { type: Number, required: true },
@@ -25,13 +25,13 @@ const UserSchema = new mongoose.Schema({
 
   accounts: [
     {
-      accountNumber: { type: BigInt, required: true },
+      accountNumber: { type: Number, required: true },
       // 1 - Saving, 2 - checking, 3- Joint, 4 - some other future types
       //Int32 (efficient for indexing)
       accountType: { type: Number, required: true },
-      enabled: { type: Boolean, required: true },
+      status: { type: Number, required: true },
       accountBalance: {
-        type: mongoose.SchemaTypes.Decimal128,
+        type: Number,
         required: true,
       },
     },
@@ -43,9 +43,9 @@ const UserSchema = new mongoose.Schema({
       cardNumber: { type: String, required: true },
       expiryDate: { type: Date, required: true },
       securityCode: { type: String, required: true },
-      maxLimit: { type: mongoose.SchemaTypes.Decimal128, required: false },
+      maxLimit: { type: Number, required: false },
       accountBalance: {
-        type: mongoose.SchemaTypes.Decimal128,
+        type: Number,
         required: false,
       },
       // active, inactive, blocked

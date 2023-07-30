@@ -1,10 +1,9 @@
 const express = require('express')
 const router = express.Router()
 
-router.post('/', (req, res) => {
-  const body = req.body;
+const splitController = require('../controllers/split-controller')
 
-  res.send('Birds home page')
-})
+router.route('/')
+  .post(splitController.splitBill)
 
 module.exports = router
