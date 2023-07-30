@@ -1,10 +1,15 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const mongoose = require("mongoose");
 
 const usersRoutes = require("./routes/users-routes");
+const splitBillRoutes = require("./routes/split-bill");
+
+require('dotenv').config({ path: `.env.${process.env.NODE_ENV}` });
+
 const HttpError = require("./models/http-error");
-const config = require("./utils/config");
+require("./utils/database")
+
+const initController = require("./controllers/init-controller")
 
 const app = express();
 
@@ -22,6 +27,12 @@ app.use((req, res, next) => {
 });
 
 app.use("/api/users", usersRoutes);
+app.use("/api/splitBill", splitBillRoutes)
+
+app.get('/init', initController.init)
+app.get('/test', (req, res) => {
+  res.send("All good!")
+})
 
 // When a route wasn't found for the path requested
 app.use((req, res, next) => {
@@ -39,12 +50,6 @@ app.use((error, req, res, next) => {
     .json({ message: error.message || "An unknown error occurred!" });
 });
 
-mongoose
-  .connect(config.db.uri, config.db.options)
-  .then(() => {
-    console.log("MongoDB Connected...");
-    app.listen(process.env.PORT || 5000, () => {
-      console.log(`Server listening at port ${process.env.PORT || 5000}`);
-    });
-  })
-  .catch((err) => console.log(err));
+app.listen(process.env.PORT || 5001, () => {
+  console.log(`Server listening at port ${process.env.PORT || 5001}`);
+});

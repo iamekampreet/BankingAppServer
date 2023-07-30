@@ -9,52 +9,56 @@ const mongoose = require("mongoose");
 
 const UserSchema = new mongoose.Schema({
   firstName: { type: String, required: true },
-  lastName: { type: String, required: true },
+  lastName: { type: String, required: false },
   // unique is used to make index for faster querying, not validation
   email: { type: String, required: true, unique: true, match: /.+\@.+\..+/ },
   password: { type: String },
   address: { type: String, required: true },
-  phone: { type: String, required: true },
+  phone: { type: String, required: true, unique: true },
   sinNumber: { type: String, required: true },
-  //can be personal, student, business
-  accountType: { type: String, required: true },
+  //can be individual, student, business, joint, organization(University, college)
+  accountType: { type: Number, required: true },
   //for business users
   displayName: { type: String },
-  // Using only checking and saving will make us limited to these accounts only
-  // If we use list we can add other account types like joint checking account
+  //for joint-checking like accounts, will refer to other owners
+  owners: { type: mongoose.Types.ObjectId, ref: "User", required: false },
+
   accounts: [
     {
-      accountNumber: { type: BigInt, required: true },
+      accountNumber: { type: Number, required: true },
       // 1 - Saving, 2 - checking, 3- Joint, 4 - some other future types
       //Int32 (efficient for indexing)
       accountType: { type: Number, required: true },
-      enabled: { type: Boolean, required: true },
+      status: { type: Number, required: true },
       accountBalance: {
-        type: mongoose.SchemaTypes.Decimal128,
+        type: Number,
         required: true,
       },
-      //for joint-checking like accounts, will refer to other owners
-      owners: { type: mongoose.Types.ObjectId, ref: "User" },
     },
   ],
   //debit card, credit card
   cards: [
     {
-      cardType: { type: String, required: true },
-      cardNumber: { type: BigInt, required: true },
+      cardType: { type: Number, required: true },
+      cardNumber: { type: String, required: true },
       expiryDate: { type: Date, required: true },
       securityCode: { type: String, required: true },
-      enabled: { type: Boolean, required: true },
-      maxLimit: { type: mongoose.SchemaTypes.Decimal128, required: true },
+      maxLimit: { type: Number, required: false },
       accountBalance: {
-        type: mongoose.SchemaTypes.Decimal128,
-        required: true,
+        type: Number,
+        required: false,
       },
       // active, inactive, blocked
-      status: { type: String, required: true },
+      status: { type: Number, required: true },
       //can add sub types of credit cards like student card, personal, business
     },
   ],
+  payee: [
+    {
+      payeeId: { type: mongoose.Types.ObjectId, required: true},
+      description: { type: String, required: false }
+    }
+  ]
 });
 
 const User = mongoose.model("User", UserSchema);
