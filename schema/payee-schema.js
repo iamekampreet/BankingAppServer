@@ -5,5 +5,10 @@ const mongoose = require("mongoose");
  */
 const PayeeSchema = new mongoose.Schema({
   payeeId: { type: mongoose.Types.ObjectId, required: true },
-  note: { type: String, required: false }
-})
+  displayName: { type: String, required: true },
+  accountNumber: { type: String, required: true },
+});
+
+const Payee = mongoose.model("Payee", PayeeSchema);
+
+module.exports = Payee;

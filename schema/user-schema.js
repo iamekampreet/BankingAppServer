@@ -15,7 +15,7 @@ const UserSchema = new mongoose.Schema({
   password: { type: String },
   address: { type: String, required: true },
   phone: { type: String, required: true, unique: true },
-  sinNumber: { type: String, required: true },
+  sinNumber: { type: String, required: false },
   //can be individual, student, business, joint, organization(University, college)
   accountType: { type: Number, required: true },
   //for business users
@@ -55,10 +55,12 @@ const UserSchema = new mongoose.Schema({
   ],
   payee: [
     {
-      payeeId: { type: mongoose.Types.ObjectId, required: true},
-      description: { type: String, required: false }
-    }
-  ]
+      payeeId: { type: mongoose.Types.ObjectId, required: true },
+      displayName: { type: String, required: true },
+      description: { type: String, required: false },
+      accountNumber: { type: Number, required: true },
+    },
+  ],
 });
 
 const User = mongoose.model("User", UserSchema);

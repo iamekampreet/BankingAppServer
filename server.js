@@ -3,13 +3,14 @@ const bodyParser = require("body-parser");
 
 const usersRoutes = require("./routes/users-routes");
 const splitBillRoutes = require("./routes/split-bill");
+const payBillRoutes = require("./routes/pay-bill");
 
-require('dotenv').config({ path: `.env.${process.env.NODE_ENV}` });
+require("dotenv").config({ path: `.env.${process.env.NODE_ENV}` });
 
 const HttpError = require("./models/http-error");
-require("./utils/database")
+require("./utils/database");
 
-const initController = require("./controllers/init-controller")
+const initController = require("./controllers/init-controller");
 
 const app = express();
 
@@ -27,12 +28,13 @@ app.use((req, res, next) => {
 });
 
 app.use("/api/users", usersRoutes);
-app.use("/api/splitBill", splitBillRoutes)
+app.use("/api/split-bill", splitBillRoutes);
+app.use("/api/pay-bill", payBillRoutes);
 
-app.get('/init', initController.init)
-app.get('/test', (req, res) => {
-  res.send("All good!")
-})
+app.get("/init", initController.init);
+app.get("/test", (req, res) => {
+  res.send("All good!");
+});
 
 // When a route wasn't found for the path requested
 app.use((req, res, next) => {
