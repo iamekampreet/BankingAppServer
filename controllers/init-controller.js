@@ -2,13 +2,13 @@ const { AccountType } = require("../enums/AccountType");
 const { CardType } = require("../enums/CardType");
 const { MainAccountType } = require("../enums/MainAccountType");
 const { StatusType } = require("../enums/StatusType");
-const User = require("../schema/user-schema")
+const Payee = require("../schema/payee-schema");
+const User = require("../schema/user-schema");
 const bcrypt = require("bcryptjs");
 
 const init = async (req, res) => {
-
-  const password =  await bcrypt.hash(`strong-password`, 12)
-  const securityCode = await bcrypt.hash(`123`, 12)
+  const password = await bcrypt.hash(`strong-password`, 12);
+  const securityCode = await bcrypt.hash(`123`, 12);
 
   const userSantosh = new User({
     firstName: "Santosh",
@@ -20,19 +20,19 @@ const init = async (req, res) => {
     sinNumber: "123456789",
     accountType: MainAccountType.Individual,
     displayName: "Santosh Dhakal",
-    accounts:[ 
+    accounts: [
       {
         accountNumber: 1,
         accountType: AccountType.Saving,
         status: StatusType.Active,
-        accountBalance: 20000.00,
+        accountBalance: 20000.0,
       },
       {
         accountNumber: 2,
         accountType: AccountType.Checking,
         status: StatusType.Active,
         accountBalance: 100000.43,
-      }
+      },
     ],
     cards: [
       {
@@ -49,10 +49,10 @@ const init = async (req, res) => {
         securityCode: securityCode,
         status: StatusType.Active,
         maxLimit: 1000,
-        accountBalance: 300
-      }
-    ]
-  })
+        accountBalance: 300,
+      },
+    ],
+  });
 
   const userEkam = new User({
     firstName: "Ekampreet",
@@ -64,7 +64,7 @@ const init = async (req, res) => {
     sinNumber: "123456789",
     accountType: MainAccountType.Business,
     displayName: "Ekampreet Singh",
-    accounts:[ 
+    accounts: [
       {
         accountNumber: 3,
         accountType: AccountType.Saving,
@@ -76,7 +76,7 @@ const init = async (req, res) => {
         accountType: AccountType.Checking,
         status: StatusType.Active,
         accountBalance: 654765.23,
-      }
+      },
     ],
     cards: [
       {
@@ -93,10 +93,10 @@ const init = async (req, res) => {
         securityCode: securityCode,
         status: StatusType.Active,
         maxLimit: 1000,
-        accountBalance: 300
-      }
-    ]
-  })
+        accountBalance: 300,
+      },
+    ],
+  });
 
   const userNatsya = new User({
     firstName: "Alla-Anastasiia",
@@ -108,7 +108,7 @@ const init = async (req, res) => {
     sinNumber: "123456789",
     accountType: MainAccountType.Individual,
     displayName: "Alla-Anastasiia Gnatkiv",
-    accounts:[ 
+    accounts: [
       {
         accountNumber: 5,
         accountType: AccountType.Saving,
@@ -120,7 +120,7 @@ const init = async (req, res) => {
         accountType: AccountType.Checking,
         status: StatusType.Active,
         accountBalance: 345324.23,
-      }
+      },
     ],
     cards: [
       {
@@ -137,21 +137,21 @@ const init = async (req, res) => {
         securityCode: securityCode,
         status: StatusType.Active,
         maxLimit: 1000,
-        accountBalance: 300
-      }
-    ]
-  })
+        accountBalance: 300,
+      },
+    ],
+  });
 
   const userHumber = new User({
     firstName: "Humber College Institute of Technology & Advanced Learning",
     email: "santoshdhakal.pro@gmail.com",
     password: password,
     address: "205 Humber College Blvd, Etobicoke, ON, Canada",
-    phone: "+16478365807",
+    phone: "+16478365800",
     sinNumber: "123456789",
-    accountType: MainAccountType.Organization ,
+    accountType: MainAccountType.Organization,
     displayName: "Humber College",
-    accounts:[ 
+    accounts: [
       {
         accountNumber: 7,
         accountType: AccountType.Saving,
@@ -163,7 +163,7 @@ const init = async (req, res) => {
         accountType: AccountType.Checking,
         status: StatusType.Active,
         accountBalance: 73465435.87,
-      }
+      },
     ],
     cards: [
       {
@@ -180,23 +180,160 @@ const init = async (req, res) => {
         securityCode: securityCode,
         status: StatusType.Active,
         maxLimit: 1000,
-        accountBalance: 300
-      }
-    ]
-  })
+        accountBalance: 300,
+      },
+    ],
+  });
+
+  const userCra = new User({
+    firstName: "CRA(Revenue) Tax Amount Owing",
+    email: "cra@gmail.com",
+    password: password,
+    address: "Wellington St, Ottawa, ON",
+    phone: "+16478365808",
+    accountType: MainAccountType.Organization,
+    displayName: "CRA(Revenue) Tax Amount Owing",
+    accounts: [
+      {
+        accountNumber: 9,
+        accountType: AccountType.Saving,
+        status: StatusType.Active,
+        accountBalance: 8365456.34,
+      },
+      {
+        accountNumber: 10,
+        accountType: AccountType.Checking,
+        status: StatusType.Active,
+        accountBalance: 73465435.87,
+      },
+    ],
+    cards: [
+      {
+        cardType: CardType.Debit,
+        cardNumber: "1234222233334444",
+        expiryDate: new Date(2025, 1, 1),
+        securityCode: securityCode,
+        status: StatusType.Active,
+      },
+      {
+        cardType: CardType.Credit,
+        cardNumber: "1234111122223333",
+        expiryDate: new Date(2025, 1, 1),
+        securityCode: securityCode,
+        status: StatusType.Active,
+        maxLimit: 1000,
+        accountBalance: 300,
+      },
+    ],
+  });
+
+  const userBell = new User({
+    firstName: "Bell Internet",
+    email: "santoshdhakal.pro@gmail.com",
+    password: password,
+    address: "1560 Dundas St E C35, Mississauga, ON",
+    phone: "+1647836522",
+    accountType: MainAccountType.Organization,
+    displayName: "Bell Internet",
+    accounts: [
+      {
+        accountNumber: 11,
+        accountType: AccountType.Saving,
+        status: StatusType.Active,
+        accountBalance: 8365456.34,
+      },
+      {
+        accountNumber: 12,
+        accountType: AccountType.Checking,
+        status: StatusType.Active,
+        accountBalance: 73465435.87,
+      },
+    ],
+    cards: [
+      {
+        cardType: CardType.Debit,
+        cardNumber: "1234222233334444",
+        expiryDate: new Date(2025, 1, 1),
+        securityCode: securityCode,
+        status: StatusType.Active,
+      },
+      {
+        cardType: CardType.Credit,
+        cardNumber: "1234111122223333",
+        expiryDate: new Date(2025, 1, 1),
+        securityCode: securityCode,
+        status: StatusType.Active,
+        maxLimit: 1000,
+        accountBalance: 300,
+      },
+    ],
+  });
 
   try {
-    await userSantosh.save()
-    await userEkam.save()
-    await userNatsya.save()
-    await userHumber.save()
+    await userSantosh.save();
+    await userEkam.save();
+    await userNatsya.save();
+    await userHumber.save();
+    await userCra.save();
+    await userBell.save();
 
-    res.send(JSON.stringify({
-      message: "Added Users to Database"
-    }))
+    const humberCheckingAccountNumber = userHumber.accounts.find(
+      (account) => account.accountType === AccountType.Checking
+    ).accountNumber;
+    const craCheckingAccountNumber = userCra.accounts.find(
+      (account) => account.accountType === AccountType.Checking
+    ).accountNumber;
+    const bellCheckingAccountNumber = userBell.accounts.find(
+      (account) => account.accountType === AccountType.Checking
+    ).accountNumber;
+
+    const payeeHumber = new Payee({
+      payeeId: userHumber._id,
+      displayName: userHumber.displayName,
+      accountNumber: humberCheckingAccountNumber,
+    });
+
+    const payeeCRA = new Payee({
+      payeeId: userCra._id,
+      displayName: userCra.displayName,
+      accountNumber: craCheckingAccountNumber,
+    });
+
+    const payeeBell = new Payee({
+      payeeId: userBell._id,
+      displayName: userBell.displayName,
+      accountNumber: bellCheckingAccountNumber,
+    });
+
+    await payeeHumber.save();
+    await payeeCRA.save();
+    await payeeBell.save();
+
+    const santoshPayeeHumber = {
+      payeeId: userHumber._id,
+      displayName: userHumber.displayName,
+      description: "Tuition Payment",
+      accountNumber: humberCheckingAccountNumber,
+    };
+    const santoshPayeeCRA = {
+      payeeId: userCra._id,
+      displayName: userCra.displayName,
+      description: "CRA tax payments",
+      accountNumber: craCheckingAccountNumber,
+    };
+    await User.updateOne(
+      { _id: userSantosh._id },
+      { $push: { payee: [santoshPayeeCRA, santoshPayeeHumber] } }
+    );
+
+    res.send(
+      JSON.stringify({
+        message: "Added Users to Database",
+      })
+    );
   } catch (ex) {
-    res.send(JSON.stringify(ex.message))
+    res.send(JSON.stringify(ex.message));
   }
-}
+};
 
-exports.init = init
+exports.init = init;
