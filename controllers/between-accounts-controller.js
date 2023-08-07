@@ -115,9 +115,6 @@ exports.upcomingPayments = async (req, res) => {
     fromUserId: new ObjectId(userId),
   });
   const responsePromise = scheduledPayments.map(async (scheduledPayment) => {
-    const payee = await Payee.findOne({
-      accountNumber: scheduledPayment.toAccount,
-    });
     let date = scheduledPayment.date.toISOString().split("T")[0];
     if (scheduledPayment.frequency === Frequency.Weekly) {
       date = dateofNextMonday();
@@ -126,7 +123,7 @@ exports.upcomingPayments = async (req, res) => {
     }
 
     return {
-      to: payee,
+      toAccount: scheduledPayment.toAccount,
       amount: scheduledPayment.amount,
       date: date,
       frequency: scheduledPayment.frequency,
