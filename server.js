@@ -11,30 +11,23 @@ const HttpError = require("./models/http-error");
 require("./utils/database");
 
 const initController = require("./controllers/init-controller");
+const { cors } = require("./middleware/cors");
+const { tokenValidator } = require("./middleware/token-validator");
 
 const app = express();
 
 app.use(bodyParser.json());
-
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-  );
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE");
-
-  next();
-});
-
-app.use("/api/users", usersRoutes);
-app.use("/api/split-bill", splitBillRoutes);
-app.use("/api/pay-bill", payBillRoutes);
+app.use(cors);
 
 app.get("/init", initController.init);
 app.get("/test", (req, res) => {
   res.send("All good!");
 });
+app.use("/api/users", usersRoutes);
+
+app.use(tokenValidator);
+app.use("/api/split-bill", splitBillRoutes);
+app.use("/api/pay-bill", payBillRoutes);
 
 // When a route wasn't found for the path requested
 app.use((req, res, next) => {
