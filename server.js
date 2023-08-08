@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const usersRoutes = require("./routes/users-routes");
 const splitBillRoutes = require("./routes/split-bill");
 const payBillRoutes = require("./routes/pay-bill");
+const betweenAccountsRoutes = require("./routes/between-accounts");
 
 require("dotenv").config({ path: `.env.${process.env.NODE_ENV}` });
 
@@ -26,6 +27,7 @@ app.get("/test", (req, res) => {
 app.use("/api/users", usersRoutes);
 
 app.use(tokenValidator);
+app.use("/api/between-accounts", betweenAccountsRoutes);
 app.use("/api/split-bill", splitBillRoutes);
 app.use("/api/pay-bill", payBillRoutes);
 
