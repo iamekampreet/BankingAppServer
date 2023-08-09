@@ -23,7 +23,7 @@ exports.transferBetweenAccounts = async (req, res) => {
     fromUserId: new ObjectId(userId),
     fromAccount: payment.from,
     toUserId: new ObjectId(userId),
-    toAccount: payment.to.accountNumber,
+    toAccount: payment.to,
     amount: payment.amount,
     date: new Date(payment.date),
     frequency: payment.frequency,
