@@ -6,7 +6,7 @@ const splitBillRoutes = require("./routes/split-bill");
 const payBillRoutes = require("./routes/pay-bill");
 const betweenAccountsRoutes = require("./routes/between-accounts");
 
-require("dotenv").config({ path: `.env.${process.env.NODE_ENV}` });
+require("dotenv").config({ path: `.env.${process.env.NODE_ENV.trim()}` });
 
 const HttpError = require("./models/http-error");
 require("./utils/database");
