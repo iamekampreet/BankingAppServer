@@ -2,7 +2,6 @@ const { ObjectId } = require("bson");
 const Payee = require("../schema/payee-schema");
 const User = require("../schema/user-schema");
 const SchedulePayment = require("../schema/schedule-payment-schema");
-const { use } = require("../routes/pay-bill");
 const {
   dateofNextMonday,
   dateOfFirstDayOfNextMonth,

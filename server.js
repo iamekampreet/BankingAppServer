@@ -1,24 +1,25 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 
 const usersRoutes = require("./routes/users-routes");
 const splitBillRoutes = require("./routes/split-bill");
 const payBillRoutes = require("./routes/pay-bill");
 const betweenAccountsRoutes = require("./routes/between-accounts");
 
-require("dotenv").config({ path: `.env.${process.env.NODE_ENV.trim()}` });
+require("dotenv").config({ path: `./.env.${process.env.NODE_ENV.trim()}` });
 
 const HttpError = require("./models/http-error");
 require("./utils/database");
 
 const initController = require("./controllers/init-controller");
-const { cors } = require("./middleware/cors");
 const { tokenValidator } = require("./middleware/token-validator");
 
 const app = express();
 
 app.use(bodyParser.json());
-app.use(cors);
+app.use(cors());
+// app.use(cors);
 
 app.get("/init", initController.init);
 app.get("/test", (req, res) => {

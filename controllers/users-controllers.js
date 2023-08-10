@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const HttpError = require("../models/http-error");
 const User = require("../schema/user-schema");
 
-require("dotenv").config({ path: `.env.${process.env.NODE_ENV}` });
+require("dotenv").config({ path: `.env.${process.env.NODE_ENV.trim()}` });
 
 const signup = async (req, res, next) => {
   const { debitCard, lastName, email, password } = req.body;

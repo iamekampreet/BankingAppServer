@@ -8,6 +8,7 @@ const User = require("../schema/user-schema");
 const { validatePhoneNumber } = require("../utils/utils");
 
 exports.splitBill = async (req, res) => {
+  console.log(req.body);
   const { friendInfos, note, accountNumber, userEmail } = req.body;
 
   //TODO do this in a transaction
