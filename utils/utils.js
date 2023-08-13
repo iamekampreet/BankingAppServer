@@ -26,8 +26,8 @@ exports.dateOfFirstDayOfNextMonth = () => {
 exports.isScheduledDateToday = (date) => {
   const today = new Date();
   return (
-    today.getFullYear() === date.getFullYear() &&
-    today.getMonth() === date.getMonth() &&
-    today.getDay() === date.getDay()
+    today.getFullYear() === date.getUTCFullYear() &&
+    today.getMonth() === date.getUTCMonth() &&
+    today.getDate() === date.getUTCDate()
   );
 };

@@ -24,7 +24,7 @@ exports.payBill = async (req, res) => {
     toUserId: new ObjectId(payment.to.payeeId),
     toAccount: payment.to.accountNumber,
     amount: payment.amount,
-    date: new Date(payment.date),
+    date: date,
     frequency: payment.frequency,
   };
 
