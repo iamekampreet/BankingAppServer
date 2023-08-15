@@ -37,8 +37,9 @@ const TransactionSchema = new mongoose.Schema({
     required: true,
   },
   transactionTime: { type: Date, required: true },
-  // pending/complete: will be used in split bill and request payment features
-  status: { type: String, required: true },
+  note: { type: String, required: false },
+  // pending/complete: will be used in split bill
+  status: { type: Number, required: true },
 });
 
 const Transaction = mongoose.model("Transaction", TransactionSchema);

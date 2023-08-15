@@ -5,6 +5,10 @@ const splitController = require("../controllers/split-controller");
 
 router.route("/").post(splitController.splitBill);
 
-router.route("/splitBillHistory").post(splitController.splitBillHistory);
+router.route("/history").get(splitController.splitBillHistory);
+
+router.route("/requestedSplit").get(splitController.requestedSplit);
+
+router.route("/completeTransaction").post(splitController.completeTransaction);
 
 module.exports = router;
