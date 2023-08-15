@@ -11,6 +11,7 @@ exports.tokenValidator = (req, res, next) => {
         message: err.message,
       });
     }
+    req.userId = decoded.userId;
     next();
   });
 };

@@ -14,7 +14,7 @@ const { TransactionStatus } = require("../enums/TransactionStatus");
 
 exports.payBill = async (req, res) => {
   const payment = req.body;
-  const { userId } = req.params;
+  const userId = req.userId;
 
   console.log(userId, payment);
 
@@ -43,14 +43,13 @@ exports.payBill = async (req, res) => {
     res.status(400).send({ message: `Insufficient Amount.` });
     return;
   }
-
-  const session = await startSession();
   //check if frequency is once and date is today
   if (
     isScheduledDateToday(schedulePayment.date) &&
     schedulePayment.frequency === Frequency.Once
   ) {
     //then perform the transaction immediately and record in transaction
+    const session = await startSession();
     try {
       session.startTransaction();
 

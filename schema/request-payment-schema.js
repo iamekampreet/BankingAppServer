@@ -11,6 +11,7 @@ const RequestPaymentSchema = new mongoose.Schema({
   // transctions will be created with Pending status and added to this
   requestedTransactions: [mongoose.Types.ObjectId],
   note: { type: String, required: false },
+  requestedDate: { type: Date, required: true },
   // split bill = 0/normal request payment = 1
   type: { type: Number, required: true },
 });
