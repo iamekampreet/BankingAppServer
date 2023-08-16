@@ -24,7 +24,7 @@ exports.payBill = async (req, res) => {
     toUserId: new ObjectId(payment.to.payeeId),
     toAccount: payment.to.accountNumber,
     amount: payment.amount,
-    date: date,
+    date: new Date(payment.date),
     frequency: payment.frequency,
   };
 
@@ -112,7 +112,7 @@ exports.payee = async (req, res) => {
 };
 
 exports.updateUserPayee = async (req, res) => {
-  const { userId } = req.params;
+  const userId = req.userId;
   const newPayee = req.body;
   console.log(userId, newPayee);
   const user = await User.findOne({ _id: userId });
@@ -129,14 +129,17 @@ exports.updateUserPayee = async (req, res) => {
     return;
   }
 
-  await User.updateOne({ _id: userId }, { $push: { payee: newPayee } });
-  const updatedUser = await User.findOne({ _id: userId });
-  res.json(updatedUser);
+  try {
+    await User.updateOne({ _id: userId }, { $push: { payee: newPayee } });
+    const updatedUser = await User.findOne({ _id: userId });
+    res.json(updatedUser);
+  } catch (error) {
+    res.status(500).send(error);
+  }
 };
 
 exports.upcomingPayments = async (req, res) => {
-  const { userId } = req.params;
-  console.log(userId);
+  const userId = req.userId;
 
   const scheduledPayments = await SchedulePayment.find({
     fromUserId: new ObjectId(userId),
