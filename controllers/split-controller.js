@@ -178,6 +178,22 @@ exports.completeTransaction = async (req, res) => {
     res.status(401).send({ message: "Unauthorized operation!" });
     return;
   }
+
+  //check balance
+  const user = await User.findById(userId);
+  if (user) {
+    const checkingAccount = user.accounts.find(
+      (account) => account.accountType === AccountType.Checking
+    );
+    if (checkingAccount.accountBalance < transaction.amount) {
+      res.status(403).send({ message: "Insufficient Balance" });
+      return;
+    }
+  } else {
+    res.status(400).send({ message: "User not found!" });
+    return;
+  }
+
   const session = await startSession();
   try {
     session.startTransaction();
@@ -213,7 +229,7 @@ exports.completeTransaction = async (req, res) => {
     console.log(ex);
     await session.abortTransaction();
     await session.endSession();
-    res.status(500).send("Exception occured!");
+    res.status(500).send(ex);
     return;
   }
 };

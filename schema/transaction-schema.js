@@ -1,7 +1,7 @@
 const { mongoose } = require("mongoose");
 
 /*
-    My Assumptions;
+    Assumptions;
     - Any transaction performed using debit card will be an checking account transaction
 
     - Transactions types;

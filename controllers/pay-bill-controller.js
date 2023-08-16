@@ -36,18 +36,18 @@ exports.payBill = async (req, res) => {
   console.log(user);
   console.log(user.accounts);
 
-  const account = user.accounts.find(
-    (account) => account.accountNumber === schedulePayment.fromAccount
-  );
-  if (account.accountBalance < schedulePayment.amount) {
-    res.status(400).send({ message: `Insufficient Amount.` });
-    return;
-  }
   //check if frequency is once and date is today
   if (
     isScheduledDateToday(schedulePayment.date) &&
     schedulePayment.frequency === Frequency.Once
   ) {
+    const account = user.accounts.find(
+      (account) => account.accountNumber === schedulePayment.fromAccount
+    );
+    if (account.accountBalance < schedulePayment.amount) {
+      res.status(400).send({ message: `Insufficient Amount.` });
+      return;
+    }
     //then perform the transaction immediately and record in transaction
     const session = await startSession();
     try {
@@ -156,6 +156,7 @@ exports.upcomingPayments = async (req, res) => {
     }
 
     return {
+      scheduledPaymentId: scheduledPayment._id,
       to: payee,
       amount: scheduledPayment.amount,
       date: date,
@@ -166,4 +167,22 @@ exports.upcomingPayments = async (req, res) => {
 
   console.log(response);
   res.send(JSON.stringify(response));
+};
+
+exports.stopPayment = async (req, res) => {
+  const { scheduledPaymentId } = req.body;
+
+  console.log(req.body);
+  console.log(scheduledPaymentId);
+  try {
+    const result = await SchedulePayment.deleteOne({ _id: scheduledPaymentId });
+    if (result.deletedCount === 0) {
+      res.status(404).send({ message: `Schedule not found!` });
+    } else {
+      res.send({ message: `Schedule removed!` });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).send(error);
+  }
 };

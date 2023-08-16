@@ -1,12 +1,5 @@
 const mongoose = require("mongoose");
 
-// Moved transaction to a different collection
-// Mongodb has max document size limit of around 16mb.
-// Transaction is an unbounded field, so it will increase
-// and the document size will increse with each transaction
-// Also, we don't want all the transaction history to be returned when
-// we are just querying for the User info. (I'm assuming everything will be returned.)
-
 const UserSchema = new mongoose.Schema({
   firstName: { type: String, required: true },
   lastName: { type: String, required: false },
