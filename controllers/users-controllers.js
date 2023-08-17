@@ -3,6 +3,8 @@ const jwt = require("jsonwebtoken");
 
 const HttpError = require("../models/http-error");
 const User = require("../schema/user-schema");
+const { CardType } = require("../enums/CardType");
+const { StatusType } = require("../enums/StatusType");
 
 require("dotenv").config({ path: `.env.${process.env.NODE_ENV.trim()}` });
 
@@ -35,14 +37,17 @@ const signup = async (req, res, next) => {
 
   // Verifying Debit card and lastName fields
   let isDebitCardValid = true;
-  if (user.debitCard) {
+  const debitCardFromDB = user.cards.find(
+    ({ cardType }) => cardType == CardType.Debit
+  );
+  if (!!debitCardFromDB && debitCardFromDB.status == StatusType.Active) {
     try {
-      isDebitCardValid = await bcrypt.compare(debitCard, user.debitCard);
+      isDebitCardValid = debitCard == debitCardFromDB.cardNumber;
     } catch (err) {
       return next(new HttpError("Something went wrong. Please try again", 500));
     }
   }
-  if (!isDebitCardValid || lastName !== user.lastName || password.length < 8) {
+  if (!isDebitCardValid || lastName !== user.lastName) {
     return next(new HttpError("Invalid credentials.", 403));
   }
 
@@ -73,7 +78,7 @@ const signup = async (req, res, next) => {
     return next(new HttpError(`Error occurred: ${err}`, 500));
   }
 
-  res.status(201).json({ userId: user.id, email, token });
+  res.status(201).json({ token, user: user });
 };
 
 const login = async (req, res, next) => {

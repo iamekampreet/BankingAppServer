@@ -38,9 +38,11 @@ const init = async (req, res) => {
       {
         cardType: CardType.Debit,
         cardNumber: "1111222233334444",
-        expiryDate: new Date(2025, 1, 1),
+        expiryDate: new Date(2024, 5, 1),
         securityCode: securityCode,
         status: StatusType.Active,
+        maxLimit: 5000,
+        accountBalance: 1500,
       },
       {
         cardType: CardType.Credit,
@@ -82,9 +84,11 @@ const init = async (req, res) => {
       {
         cardType: CardType.Debit,
         cardNumber: "1111222233334444",
-        expiryDate: new Date(2025, 1, 1),
+        expiryDate: new Date(2024, 5, 1),
         securityCode: securityCode,
         status: StatusType.Active,
+        maxLimit: 5000,
+        accountBalance: 1500,
       },
       {
         cardType: CardType.Credit,
@@ -125,10 +129,12 @@ const init = async (req, res) => {
     cards: [
       {
         cardType: CardType.Debit,
-        cardNumber: "2222333344445555",
-        expiryDate: new Date(2025, 1, 1),
+        cardNumber: "1111222233334444",
+        expiryDate: new Date(2024, 5, 1),
         securityCode: securityCode,
         status: StatusType.Active,
+        maxLimit: 5000,
+        accountBalance: 1500,
       },
       {
         cardType: CardType.Credit,
@@ -143,7 +149,8 @@ const init = async (req, res) => {
   });
 
   const userHumber = new User({
-    firstName: "Humber College Institute of Technology & Advanced Learning",
+    firstName: "Humber College Institute of Technology & Advanced",
+    lastName: "Learning",
     email: "santoshdhakal.pro@gmail.com",
     password: password,
     address: "205 Humber College Blvd, Etobicoke, ON, Canada",
@@ -168,10 +175,12 @@ const init = async (req, res) => {
     cards: [
       {
         cardType: CardType.Debit,
-        cardNumber: "1234222233334444",
-        expiryDate: new Date(2025, 1, 1),
+        cardNumber: "1111222233334444",
+        expiryDate: new Date(2024, 5, 1),
         securityCode: securityCode,
         status: StatusType.Active,
+        maxLimit: 5000,
+        accountBalance: 1500,
       },
       {
         cardType: CardType.Credit,
@@ -186,7 +195,8 @@ const init = async (req, res) => {
   });
 
   const userCra = new User({
-    firstName: "CRA(Revenue) Tax Amount Owing",
+    firstName: "CRA(Revenue) Tax Amount",
+    lastName: "Owing",
     email: "cra@gmail.com",
     password: password,
     address: "Wellington St, Ottawa, ON",
@@ -214,6 +224,8 @@ const init = async (req, res) => {
         expiryDate: new Date(2025, 1, 1),
         securityCode: securityCode,
         status: StatusType.Active,
+        maxLimit: 5000,
+        accountBalance: 1500,
       },
       {
         cardType: CardType.Credit,
@@ -228,8 +240,9 @@ const init = async (req, res) => {
   });
 
   const userBell = new User({
-    firstName: "Bell Internet",
-    email: "santoshdhakal.pro@gmail.com",
+    firstName: "Bell",
+    lastName: "Internet",
+    email: "santoshdhakal.pro2@gmail.com",
     password: password,
     address: "1560 Dundas St E C35, Mississauga, ON",
     phone: "+1647836522",
@@ -252,10 +265,12 @@ const init = async (req, res) => {
     cards: [
       {
         cardType: CardType.Debit,
-        cardNumber: "1234222233334444",
-        expiryDate: new Date(2025, 1, 1),
+        cardNumber: "1111222233334444",
+        expiryDate: new Date(2024, 5, 1),
         securityCode: securityCode,
         status: StatusType.Active,
+        maxLimit: 5000,
+        accountBalance: 1500,
       },
       {
         cardType: CardType.Credit,
