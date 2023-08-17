@@ -83,9 +83,10 @@ exports.payBill = async (req, res) => {
         status: TransactionStatus.Complete,
       }).save();
 
+      const updatedUser = await User.findById(userId).exec();
       await session.commitTransaction();
       await session.endSession();
-      res.send({ message: "Payment Complete!" });
+      res.send({ message: "Payment Complete!", user: updatedUser });
       return;
     } catch (ex) {
       console.log(ex);

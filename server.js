@@ -14,6 +14,7 @@ require("./utils/database");
 
 const initController = require("./controllers/init-controller");
 const { tokenValidator } = require("./middleware/token-validator");
+const User = require("./schema/user-schema");
 
 const app = express();
 
@@ -31,6 +32,16 @@ app.use(tokenValidator);
 app.use("/api/between-accounts", betweenAccountsRoutes);
 app.use("/api/split-bill", splitBillRoutes);
 app.use("/api/pay-bill", payBillRoutes);
+app.get("/api/user/getUserInfo", async (req, res) => {
+  const userId = req.userId;
+  try {
+    const user = await User.findById(userId);
+    res.send({ user: user });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send(err);
+  }
+});
 
 // When a route wasn't found for the path requested
 app.use((req, res, next) => {
