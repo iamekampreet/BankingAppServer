@@ -99,7 +99,7 @@ exports.payBill = async (req, res) => {
 
   try {
     await new SchedulePayment(schedulePayment).save();
-    res.send({ message: "Schedule Payment created!" });
+    res.send({ message: "Schedule Payment created!", user: user });
   } catch (ex) {
     console.log(ex);
     res.send(500).send({ message: `Error: ${ex.message}` });
